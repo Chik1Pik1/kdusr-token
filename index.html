@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KOD USSR — Цифровое оружие прошлого</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --main-red: #e74c3c;
+      --main-bg: #0f0f0f;
+      --darker: #1a1a1a;
+      --accent: #cc3b30;
+      --text: #fff;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Share Tech Mono', monospace;
+      background: var(--main-bg);
+      color: var(--main-red);
+      box-sizing: border-box;
+      min-height: 100%;
+      width: 100vw;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(231, 76, 60, 0.07) 0,
+        rgba(231, 76, 60, 0.07) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      z-index: 1000;
+      animation: scanline-flicker 1.5s infinite;
+      mix-blend-mode: screen;
+    }
+    @keyframes scanline-flicker {
+      0%, 100% { opacity: 0.07; }
+      50% { opacity: 0.12; }
+    }
+    a { color: var(--main-red); transition: color 0.2s;}
+    a:hover { color: var(--text); }
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px 12px 80px 12px;
+      position: relative;
+      z-index: 10;
+    }
+    header {
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 30px;
+    }
+    .logo-img {
+      display: block;
+      margin: 0 auto 18px auto;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      box-shadow: 0 0 22px 4px rgba(231,76,60,0.25), 0 0 0 4px #e74c3c inset;
+      border: 5px solid #1a1a1a;
+      object-fit: cover;
+      background: #222;
+      transition: box-shadow 0.3s;
+    }
+    .logo-img:hover {
+      box-shadow: 0 0 40px 10px #e74c3c, 0 0 0 4px #e74c3c inset;
+    }
+    .logo {
+      font-size: 48px;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 4px;
+      border-bottom: 3px solid var(--main-red);
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .slogan {
+      font-size: 20px;
+      color: var(--text);
+      margin-bottom: 24px;
+      font-weight: normal;
+      text-shadow: 0 0 9px var(--main-red);
+    }
+    .cta-row {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 2px solid var(--main-red);
+      color: var(--main-red);
+      padding: 12px 24px;
+      border-radius: 7px;
+      font-size: 17px;
+      font-family: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .2s;
+      font-weight: bold;
+    }
+    .cta-btn:hover {
+      background: var(--main-red);
+      color: var(--main-bg);
+    }
+    .section-title {
+      font-size: 28px;
+      color: var(--text);
+      border-left: 5px solid var(--main-red);
+      padding-left: 15px;
+      margin-top: 48px;
+      margin-bottom: 18px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 3px var(--accent);
+    }
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--main-red);
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .description, .faq, .team-list, .partners-list, .roadmap-list, .media-list, .stats, .docs-links {
+      margin-bottom: 32px;
+    }
+    .description p, .faq p { color: var(--text); font-size: 16px; line-height: 1.7; }
+    .highlight { color: var(--main-red); font-weight: bold; }
+    .team-list {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .team-member {
+      background: var(--darker);
+      padding: 18px 14px;
+      border-radius: 11px;
+      box-shadow: 0 0 12px rgba(231,76,60,0.15);
+      text-align: center;
+      min-width: 180px;
+      max-width: 220px;
+      filter: grayscale(1) contrast(1.15);
+    }
+    .team-member img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      margin-bottom: 8px;
+      border: 2px solid var(--main-red);
+      object-fit: cover;
+      filter: grayscale(1) contrast(1.15);
+    }
+    .team-member .name {
+      color: var(--main-red);
+      font-weight: bold;
+      font-size: 17px;
+      margin-bottom: 6px;
+      margin-top: 4px;
+    }
+    .team-member .role {
+      color: var(--accent);
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+    .team-member .links a {
+      margin: 0 5px;
+      color: var(--main-red);
+      font-size: 17px;
+      text-decoration: none;
+    }
+    .team-member .links a:hover { color: var(--text); }
+    .partners-list {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    .partner-logo {
+      background: var(--darker);
+      padding: 16px 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 7px var(--main-red);
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 64px;
+      width: 120px;
+    }
+    .partner-logo img, .media-logo img {
+      max-height: 40px;
+      max-width: 90px;
+      filter: grayscale(1) brightness(1.3) contrast(1.2);
+    }
+    .roadmap-list {
+      color: var(--text);
+      margin-left: 10px;
+    }
+    .roadmap-item {
+      margin-bottom: 10px;
+      border-left: 3px solid var(--main-red);
+      padding-left: 13px;
+      font-size: 16px;
+    }
+    .stats {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .stat-card {
+      background: var(--darker);
+      border: 2px solid var(--main-red);
+      padding: 18px 28px;
+      border-radius: 10px;
+      color: var(--main-red);
+      min-width: 130px;
+      text-align: center;
+      margin-bottom: 10px;
+      box-shadow: 0 0 6px var(--main-red);
+    }
+    .stat-value {
+      font-size: 22px;
+      color: var(--text);
+      margin-bottom: 3px;
+      font-weight: bold;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: var(--main-red);
+    }
+    .chart-block {
+      background: var(--darker);
+      border-radius: 12px;
+      min-height: 220px;
+      margin: 0 auto 24px auto;
+      max-width: 600px;
+      box-shadow: 0 0 10px var(--main-red);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      color: var(--main-red);
+      font-size: 22px;
+      letter-spacing: 2px;
+      padding: 18px 12px 14px 12px;
+      position: relative;
+    }
+    #kdusr-ticker {
+      width: 100%;
+      font-size: 17px;
+      white-space: nowrap;
+      overflow: hidden;
+      color: var(--main-red);
+      margin-bottom: 16px;
+      font-family: inherit;
+      background: rgba(20,20,20,0.7);
+      border-radius: 6px;
+      padding: 8px 8px;
+      box-shadow: 0 0 6px var(--main-red);
+    }
+    #kdusr-ticker-text {
+      display: inline-block;
+      animation: ticker-move 24s linear infinite;
+      min-width: 100%;
+    }
+    @keyframes ticker-move {
+      0% { transform: translate3d(100%,0,0);}
+      100% { transform: translate3d(-120%,0,0);}
+    }
+    #kdusr-chart-canvas {
+      display: block;
+      margin: 0 auto 14px auto;
+      background: transparent;
+      box-shadow: 0 0 8px var(--main-red);
+      border-radius: 8px;
+      border: 1.5px solid var(--main-red);
+      width: 100%;
+      max-width: 570px;
+      height: 90px;
+    }
+    @media (max-width: 700px) {
+      .logo-img { width: 76px; height: 76px; }
+      .logo { font-size: 32px; }
+      .container { padding: 12px 5px 120px 5px;}
+      .section-title { font-size: 21px; }
+      .team-list, .partners-list, .stats, .media-list { gap: 10px; }
+      .chart-block { padding: 8px 3px 7px 3px;}
+      #kdusr-chart-canvas { height: 60px; }
+      footer { font-size: 12px;}
+    }
+    .media-list {
+      display: flex;
+      gap: 26px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    .media-logo {
+      background: var(--darker);
+      padding: 10px 16px;
+      border-radius: 6px;
+      margin-bottom: 7px;
+      box-shadow: 0 0 6px var(--accent);
+    }
+    .media-quote {
+      color: var(--accent);
+      font-style: italic;
+      font-size: 15px;
+      max-width: 300px;
+      margin-bottom: 5px;
+    }
+    .faq-item {
+      margin-bottom: 18px;
+    }
+    .faq-q {
+      color: var(--main-red);
+      font-weight: bold;
+      cursor: pointer;
+      transition: color .2s;
+    }
+    .faq-q:hover { color: var(--text);}
+    .faq-a {
+      color: var(--text);
+      margin-top: 4px;
+      padding-left: 10px;
+      font-size: 15px;
+    }
+    .docs-links a {
+      display: inline-block;
+      background: var(--main-red);
+      color: var(--main-bg);
+      padding: 7px 15px;
+      border-radius: 5px;
+      margin-right: 10px;
+      margin-bottom: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 15px;
+      transition: background .18s, color .18s;
+    }
+    .docs-links a:hover { background: var(--main-bg); color: var(--main-red);}
+    .security {
+      background: var(--darker);
+      border-left: 5px solid var(--main-red);
+      padding: 14px 20px;
+      border-radius: 10px;
+      color: var(--text);
+      margin-bottom: 32px;
+      font-size: 16px;
+      box-shadow: 0 0 8px var(--main-red);
+    }
+    .subscribe-form {
+      display: flex;
+      gap: 10px;
+      max-width: 340px;
+      margin: 0 auto 40px auto;
+    }
+    .subscribe-form input[type="email"] {
+      flex: 1;
+      border: 2px solid var(--main-red);
+      border-radius: 5px;
+      padding: 7px 10px;
+      font-size: 15px;
+      background: var(--main-bg);
+      color: var(--main-red);
+      outline: none;
+      transition: border .2s;
+    }
+    .subscribe-form input[type="email"]:focus {
+      border: 2px solid var(--text);
+    }
+    .subscribe-form button {
+      background: var(--main-red);
+      border: none;
+      color: var(--main-bg);
+      font-weight: bold;
+      border-radius: 5px;
+      padding: 7px 15px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: background .18s, color .18s;
+    }
+    .subscribe-form button:hover {
+      background: var(--main-bg);
+      color: var(--main-red);
+      border: 2px solid var(--main-red);
+    }
+    footer {
+      width: 100%;
+      text-align: center;
+      font-size: 13px;
+      color: #888;
+      background: var(--darker);
+      padding: 26px 12px 18px 12px;
+      border-top: 2px solid var(--main-red);
+      z-index: 12;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .footer-links {
+      margin-bottom: 8px;
+    }
+    .footer-links a { color: var(--main-red); margin: 0 10px; }
+    .footer-links a:hover { color: var(--text);}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <!-- Логотип монеты (KOD USSR) -->
+      <img src="images/gerb.jpg" alt="" class="logo-img" />
+      <div class="logo">KOD USSR</div>
+      <div class="slogan">Цифровое оружие прошлого — валюта нового мира</div>
+      <div class="cta-row">
+        <!-- Кнопка на покупку токена через Dedust -->
+        <a class="cta-btn" href="https://dedust.io/" target="_blank">Купить $KDUSR</a>
+        <!-- Кнопка на покупку/обзор токена через Ston.fi -->
+        <a class="cta-btn" href="https://ston.fi/" target="_blank">Ston.fi</a>
+        <!-- Кнопка на Telegram-канал/чат проекта -->
+        <a class="cta-btn" href="https://t.me/KODUSSR" target="_blank">Telegram</a>
+        <!-- Кнопка на Twitter/X проекта -->
+        <a class="cta-btn" href="https://x.com/KOD_USSR?s=35" target="_blank">Подписаться на X</a>
+        <!-- Кнопка на TikTok проекта -->
+        <a class="cta-btn" href="https://www.tiktok.com/@ne_programm1st?_t=ZS-8x0R6E6Khgl&_r=1" target="_blank">TikTok</a>
+        <!-- Кнопка на TON Wallet (официальный кошелёк TON) -->
+        <a class="cta-btn" href="https://ton.org/ru" target="_blank">Скачать TON Wallet</a>
+        <!-- Кнопка на форму подписки на новости -->
+        <a class="cta-btn" href="#subscribe">Подписаться на новости</a>
+      </div>
+    </header>
+
+    <!-- Описание -->
+    <div class="section-title">О проекте</div>
+    <div class="description">
+      <p>
+        <span class="highlight">KOD USSR ($KDUSR)</span> — токен, вдохновлённый легендой времён холодной войны. В 1983 году, в глубинах Урала, советские учёные под присмотром КГБ разработали первую цифровую валюту, способную изменить мировой порядок. Сегодня эта идея возвращается в мире Web3.
+      </p>
+      <p>
+        Наша миссия — дать сообществу уникальный актив, сочетающий историю, мем-культуру и технологии TON. Токен <b>KOD USSR</b> призван объединить энтузиастов, инвесторов и коллекционеров, а также стать символом настоящей "криптовойны" за свободу и децентрализацию.
+      </p>
+      <p>
+        <span class="highlight">Преимущества:</span> честная эмиссия, отсутствие скрытых налогов, мем-лор, безопасность, открытость и интеграция с ведущими сервисами TON.
+      </p>
+    </div>
+
+    <!-- Технические детали -->
+    <div class="section-title">Технические детали</div>
+    <div class="description">
+      <p><b>Максимальный объём:</b> 1 000 000 KDUSR</p>
+      <p><b>Сеть:</b> TON (The Open Network)</p>
+      <p><b>Токеномика:</b> 100% выпущено, без приватных сейлов и скрытых распределений. Нет налогов, фейр-лонч, ликвидность добавляется комьюнити.</p>
+      <!-- Ссылка на контракт токена в TON Viewer -->
+      <p><b>Контракт:</b> <a href="https://tonviewer.com/EQC..." target="_blank">Смотреть в Tonviewer</a></p>
+      <!-- Ссылка на Whitepaper (PDF) -->
+      <p><b>Whitepaper:</b> <a href="whitepaper.pdf" target="_blank">Скачать PDF</a></p>
+    </div>
+
+    <!-- Цена и капитализация с анимированной трендовой линией -->
+    <div class="section-title">Цена и капитализация</div>
+    <div class="chart-block">
+      <canvas id="kdusr-chart-canvas" width="570" height="90"></canvas>
+      <!-- Бегущая лента торгов -->
+      <div id="kdusr-ticker">
+        <span id="kdusr-ticker-text">[Биржевой поток...]</span>
+      </div>
+      <div class="stats" style="margin-top:10px;">
+        <div class="stat-card">
+          <div class="stat-value" id="kdusr-price">$0.0001</div>
+          <div class="stat-label">Цена</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="kdusr-mcap">$100</div>
+          <div class="stat-label">Капитализация</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="kdusr-volume">$12</div>
+          <div class="stat-label">24ч объём</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="kdusr-holders">100+</div>
+          <div class="stat-label">Холдеры</div>
+        </div>
+      </div>
+    </div>
+    <script>
+    // Fake trendline/price chart for KDUSR
+    const canvas = document.getElementById('kdusr-chart-canvas');
+    const ctx = canvas.getContext('2d');
+    let chartData = [];
+    let basePrice = 0.0001;
+    let lastPrice = basePrice;
+    function genInitialChart() {
+      chartData = [];
+      let p = basePrice;
+      for (let i = 0; i < 68; ++i) {
+        p += (Math.random()-0.48) * p * 0.06;
+        p = Math.max(0.00007, Math.min(p, 0.00025));
+        chartData.push(p);
+      }
+      lastPrice = chartData[chartData.length-1];
+    }
+    genInitialChart();
+    function drawChart() {
+      const w = canvas.width, h = canvas.height;
+      ctx.clearRect(0,0,w,h);
+      ctx.save();
+      ctx.strokeStyle = "rgba(231,76,60,0.13)";
+      ctx.lineWidth = 1;
+      for(let i=1;i<5;i++){
+        ctx.beginPath();
+        ctx.moveTo(0, i*h/5);
+        ctx.lineTo(w, i*h/5);
+        ctx.stroke();
+      }
+      ctx.restore();
+      ctx.beginPath();
+      for (let i = 0; i < chartData.length; ++i) {
+        let x = i*(w/(chartData.length-1));
+        let min = Math.min(...chartData), max = Math.max(...chartData);
+        let y = h - ((chartData[i] - min)/(max-min+0.000001)) * (h-10) - 5;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = "#e74c3c";
+      ctx.lineWidth = 3;
+      ctx.shadowColor = "#e74c3c";
+      ctx.shadowBlur = 7;
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+      let lx = (chartData.length-1)*(w/(chartData.length-1));
+      let min = Math.min(...chartData), max = Math.max(...chartData);
+      let ly = h - ((chartData[chartData.length-1] - min)/(max-min+0.000001)) * (h-10) - 5;
+      ctx.beginPath();
+      ctx.arc(lx, ly, 5, 0, 2*Math.PI);
+      ctx.fillStyle = "#fff";
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#e74c3c";
+      ctx.stroke();
+    }
+    function animateChart() {
+      let np = lastPrice + (Math.random()-0.48) * lastPrice * 0.06;
+      np = Math.max(0.00007, Math.min(np, 0.00025));
+      chartData.shift();
+      chartData.push(np);
+      lastPrice = np;
+      drawChart();
+    }
+    setInterval(animateChart, 1500);
+    drawChart();
+    let price = lastPrice, mcap = 100, volume = 12, holders = 100;
+    const priceEl = document.getElementById('kdusr-price');
+    const mcapEl = document.getElementById('kdusr-mcap');
+    const volEl = document.getElementById('kdusr-volume');
+    const holdersEl = document.getElementById('kdusr-holders');
+    const tickerEl = document.getElementById('kdusr-ticker-text');
+    function randomDelta(val, percent=0.3) {
+      return val + (Math.random()-0.5) * val * percent * 0.01;
+    }
+    function animateStats() {
+      price = lastPrice + (Math.random()-0.48) * lastPrice * 0.01;
+      mcap = Math.max(99, Math.round(price * 1000000));
+      volume = Math.round(volume + (Math.random()-0.5)*3);
+      holders = Math.max(100, holders + (Math.random() < 0.2 ? 1 : 0));
+      priceEl.textContent = '$' + price.toFixed(5);
+      mcapEl.textContent = '$' + mcap;
+      volEl.textContent = '$' + volume;
+      holdersEl.textContent = holders + '+';
+    }
+    setInterval(animateStats, 2200);
+    const pairs = ['TON/KDUSR', 'USD/KDUSR', 'BTC/KDUSR'];
+    function randomTradeText() {
+      const side = Math.random() > 0.5 ? 'куплено' : 'продано';
+      const qty = (Math.random()*1500+100).toFixed(0);
+      const pair = pairs[Math.floor(Math.random()*pairs.length)];
+      const priceShow = '$' + (price * (1 + (Math.random()-0.5)*0.04)).toFixed(5);
+      return `⏺ ${qty} KDUSR ${side} по ${priceShow} (${pair})`;
+    }
+    let tickerQueue = [];
+    function updateTicker() {
+      if (tickerQueue.length < 6) tickerQueue.push(randomTradeText());
+      tickerEl.textContent = tickerQueue.join('   •   ');
+      tickerQueue.shift();
+    }
+    setInterval(updateTicker, 1800);
+    </script>
+
+    <div class="docs-links">
+      <!-- Ссылка на GitHub проекта (open-source код) -->
+      <a href="https://github.com/yourrepo" target="_blank">GitHub</a>
+      <!-- Ссылка на контракт токена (TON Explorer) -->
+      <a href="https://tonviewer.com/EQC..." target="_blank">Контракт</a>
+      <!-- Ссылка на TON Scan блокчейн-эксплорер -->
+      <a href="https://tonscan.org" target="_blank">TON Explorer</a>
+      <!-- Ссылка на whitepaper -->
+      <a href="whitepaper.pdf" target="_blank">Whitepaper</a>
+    </div>
+
+    <!-- Roadmap -->
+    <div class="section-title">Дорожная карта</div>
+    <div class="roadmap-list">
+      <div class="roadmap-item">Q2 2025 — Запуск токена $KDUSR, листинг на Stonfi и Dedust</div>
+      <div class="roadmap-item">Q3 2025 — Запуск NFT коллекции и первых мем-кампаний</div>
+      <div class="roadmap-item">Q4 2025 — Комьюнити-инициативы, партнёрства, интеграции</div>
+      <div class="roadmap-item">2026 — Разработка DAO, новые партнерства, листинг на CEX</div>
+    </div>
+
+    <!-- Команда (советские ученые, вымышленные имена, ЛОКАЛЬНЫЕ ФОТО) -->
+    <div class="section-title">Команда</div>
+    <div class="team-list">
+      <div class="team-member">
+        <img src="images/1.jpg" alt="" />
+        <div class="name"></div>
+        <div class="role">Главный конструктор<br>Руководитель проекта</div>
+        <div class="links">
+          <a href="#" target="_blank">СССР</a>
+        </div>
+      </div>
+      <div class="team-member">
+        <img src="images/2.jpg" alt="" />
+        <div class="name"></div>
+        <div class="role">Главный теоретик<br>Академик, физик-ядерщик</div>
+        <div class="links">
+          <a href="#" target="_blank">СССР</a>
+        </div>
+      </div>
+      <div class="team-member">
+        <img src="images/3.jpg" alt="" />
+        <div class="name"></div>
+        <div class="role">Главный вычислитель<br>Куратор лаборатории</div>
+        <div class="links">
+          <a href="#" target="_blank">СССР</a>
+        </div>
+      </div>
+      <div class="team-member">
+        <img src="images/4.jpg" alt="" />
+        <div class="name"></div>
+        <div class="role">Ведущий криптоаналитик<br>Заведующая отделом шифрования</div>
+        <div class="links">
+          <a href="#" target="_blank">СССР</a>
+        </div>
+      </div>
+      <div class="team-member">
+        <img src="images/5.jpg" alt="" />
+        <div class="name"></div>
+        <div class="role">Советник по теоретической физике</div>
+        <div class="links">
+          <a href="#" target="_blank">СССР</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Партнеры -->
+    <div class="section-title">Партнёры</div>
+    <div class="partners-list">
+      <!-- Логотип TON -->
+      <div class="partner-logo"><img src="images/Ton.png" alt="TON" title="TON"/></div>
+      <!-- Логотип Dedust -->
+      <div class="partner-logo"><img src="https://dedust.io/favicon.ico" alt="Dedust" title="Dedust"/></div>
+      <!-- Логотип Stonfi -->
+      <div class="partner-logo"><img src="https://ston.fi/favicon.ico" alt="Stonfi" title="Stonfi"/></div>
+    </div>
+
+    <!-- Социальное доказательство -->
+    <div class="section-title">Отзывы и СМИ</div>
+    <div class="media-list">
+      <!-- Логотип RT Russia Today -->
+      <div class="media-logo"><img src="images/rt.png" alt="RT"/></div>
+      <!-- Логотип CryptoNews -->
+      <div class="media-logo"><img src="images/Cryptonews.png" alt="CryptoNews"/></div>
+      <div>
+        <div class="media-quote">"KOD USSR — это мем и криптовалюта в одном флаконе. Исторический вайб, комьюнити и честный старт!"</div>
+        <!-- Логотип Forklog -->
+        <div class="media-logo"><img src="images/forklog.png" alt="Forklog"/></div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="section-title">FAQ</div>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">Что такое KOD USSR?</div>
+        <div class="faq-a">Это мем-токен на TON с уникальным лором и честной токеномикой, вдохновлённый историей и духом свободы Web3.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Как купить токен?</div>
+        <div class="faq-a">Через децентрализованные биржи Stonfi или Dedust — просто подключите свой TON-кошелёк.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Будет ли DAO?</div>
+        <div class="faq-a">Да, в планах запуск DAO для управления развитием проекта.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Где узнать о новых фичах?</div>
+        <div class="faq-a">Подпишитесь на наш Telegram или оставьте e-mail для рассылки новостей.</div>
+      </div>
+    </div>
+
+    <!-- Security -->
+    <div class="section-title">Безопасность</div>
+    <div class="security">
+      <b>Контракт открыт и верифицирован.</b> Аудит запланирован после роста комьюнити. Ключи от контрактов уничтожены, доступ только у сообщества.
+      <br>Все средства на ликвидности — публичны.
+    </div>
+
+    <!-- Newsletter -->
+    <div class="section-title" id="subscribe">Подпишитесь на новости</div>
+    <form class="subscribe-form" onsubmit="alert('Спасибо за подписку!');return false;">
+      <input type="email" placeholder="Ваш e-mail" required />
+      <button type="submit">Подписаться</button>
+    </form>
+
+    <div class="docs-links">
+      <!-- Ссылка на политику конфиденциальности -->
+      <a href="privacy.html">Политика конфиденциальности</a>
+      <!-- Ссылка на условия использования -->
+      <a href="terms.html">Условия использования</a>
+      <!-- Контактный email проекта -->
+      <a href="mailto:info@kodussr.com">info@kodussr.com</a>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-links">
+      <!-- Ссылка на Telegram -->
+      <a href="https://t.me/KODUSSR" target="_blank">Telegram</a> |
+      <!-- Ссылка на X/Twitter -->
+      <a href="https://x.com/KOD_USSR?s=35" target="_blank">X</a> |
+      <!-- Ссылка на TikTok -->
+      <a href="https://www.tiktok.com/@ne_programm1st?_t=ZS-8x0R6E6Khgl&_r=1" target="_blank">TikTok</a> |
+      <!-- Ссылка на Dedust -->
+      <a href="https://dedust.io/" target="_blank">Dedust</a> |
+      <!-- Ссылка на Ston.fi -->
+      <a href="https://ston.fi/" target="_blank">Ston.fi</a>
+    </div>
+    &copy; 1983-2025 KOD USSR — Все права защищены
+  </footer>
+</body>
+</html>
